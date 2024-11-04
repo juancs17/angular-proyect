@@ -1,0 +1,61 @@
+<div class="container mx-auto p-6">
+  <!-- Título y botón en una fila con space-between -->
+  <div class="flex items-center justify-between mb-4">
+    <h2 class="text-2xl font-semibold">Shop by Category</h2>
+    <button
+      class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200"
+      routerLink="/admin/users/crear"
+    >
+      Crear
+    </button>
+  </div>
+
+  <!-- Grid de categorías -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <!-- Usa *ngFor para iterar sobre cada categoría en el arreglo categories -->
+    <div
+      *ngFor="let category of categories"
+      class="relative bg-white rounded-lg shadow-md hover:shadow-lg overflow-hidden group"
+    >
+      <!-- Mostrar imagen de la categoría -->
+      <img
+        [src]="category.image"
+        alt="{{ category.name }}"
+        class="w-full h-48 object-cover"
+      />
+      <div class="p-4">
+        <!-- Mostrar nombre de la categoría -->
+        <h3 class="text-lg font-semibold">{{ category.name }}</h3>
+        <!-- Puedes añadir aquí más detalles de la categoría si tienes más propiedades -->
+      </div>
+      <!-- Iconos de editar y eliminar -->
+      <div
+        class="absolute top-2 right-2 flex space-x-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"
+      >
+        <button
+          class="p-2 rounded-full bg-gray-200 hover:bg-gray-300 text-gray-600"
+          title="Editar"
+          routerLink="/admin/users/editar"
+        >
+          <!-- Ícono de lápiz (editar) -->
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="h-5 w-5"
+            viewBox="0 0 20 20"
+            fill="currentColor"
+          >
+            <path
+              d="M17.414 2.586a2 2 0 010 2.828l-1.172 1.172-2.828-2.828L14.586 2.586a2 2 0 012.828 0zM12.758 6.586l-7.58 7.586a2 2 0 00-.469.741l-.89 3.55a1 1 0 001.215 1.215l3.55-.89a2 2 0 00.741-.469l7.586-7.586-2.828-2.828z"
+            />
+          </svg>
+        </button>
+        <button (click)="openDeleteModal()" class="p-2 rounded-full bg-gray-200 hover:bg-gray-300 text-gray-600">
+          <!-- Ícono de basurero (eliminar) -->
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M6 3a1 1 0 011-1h6a1 1 0 011 1v1h4a1 1 0 110 2H3a1 1 0 110-2h4V3zm1 4a1 1 0 00-1 1v7a1 1 0 001 1h6a1 1 0 001-1V8a1 1 0 00-1-1H7z" clip-rule="evenodd" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

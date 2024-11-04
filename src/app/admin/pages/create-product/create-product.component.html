@@ -1,0 +1,52 @@
+<!-- create-product.component.html -->
+<div class="container mx-auto p-6 max-w-md bg-white rounded-lg shadow-md">
+  <h2 class="text-2xl font-semibold mb-4">Formulario</h2>
+  
+  <form (submit)="onSubmit($event)">
+    <!-- Campo para seleccionar una imagen -->
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-medium mb-2" for="image">
+        Seleccionar imagen
+      </label>
+      <input
+        type="file"
+        id="image"
+        name="image"
+        accept="image/*"
+        (change)="onFileChange($event)"
+        class="block w-full text-gray-700 bg-gray-100 border border-gray-300 rounded-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+      />
+    </div>
+    
+    <!-- Campo de texto para el nombre -->
+    <div class="mb-4">
+      <label class="block text-gray-700 text-sm font-medium mb-2" for="name">
+        Nombre
+      </label>
+      <input
+        type="text"
+        id="name"
+        name="name"
+        [(ngModel)]="name"
+        class="block w-full px-4 py-2 text-gray-700 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+        placeholder="Escribe tu nombre"
+      />
+    </div>
+    
+    <!-- Botón de envío -->
+    <div class="flex justify-end">
+      <button
+        routerLink="/admin/users/productos"
+        class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200"
+      >
+        Atras
+      </button>
+      <button
+        type="submit"
+        class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200"
+      >
+        Enviar
+      </button>
+    </div>
+  </form>
+</div>
