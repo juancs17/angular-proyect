@@ -38,7 +38,6 @@ export class DeleteProductComponent implements OnInit {
 
       this.modalService.deleteCategory(this.categoryId, token).subscribe({
         next: (response) => {
-          console.log('response', response);
           this.router.navigate(['/admin/categorias/productos']);
           this.closeModal();
         },
