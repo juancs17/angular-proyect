@@ -1,14 +1,12 @@
 export interface GetCategory {
-    id: number;
-    name: string;
-    image: string;
-    createdAt:string;
-    updatedAt:string;
+  id: number;
+  name: string;
+  image: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
-export interface CreateProduct {
-    name: string;
-    image: File; 
-  }
-
-
+export interface CreateCategory {
+  name: string;
+  image: File;
+}

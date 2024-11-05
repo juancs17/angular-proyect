@@ -2,11 +2,9 @@ import { Routes } from '@angular/router';
 import { AdminLayoutComponent } from './admin/layout/admin-layout/admin-layout.component';
 import { CreateProductComponent } from './admin/pages/create-product/create-product.component';
 import { PutProductComponent } from './admin/pages/put-product/put-product.component';
-import { DeleteProductComponent } from './admin/pages/delete-product/delete-product.component';
 import { GetProductComponent } from './admin/pages/get-product/get-product.component';
 import { AuthLayoutComponent } from './auth/auth-layout/auth-layout.component';
 import { LoginComponent } from './auth/login/login.component';
-
 
 export const routes: Routes = [
   {
@@ -18,25 +16,21 @@ export const routes: Routes = [
         component: LoginComponent,
       },
     ],
-},
+  },
   {
     path: 'admin',
     component: AdminLayoutComponent,
     children: [
       {
-        path: 'users',
+        path: 'categorias',
         children: [
           {
             path: 'crear',
             component: CreateProductComponent,
           },
           {
-            path: 'editar',
+            path: 'editar/:id',
             component: PutProductComponent,
-          },
-          {
-            path: 'eliminar',
-            component: DeleteProductComponent,
           },
           {
             path: 'productos',

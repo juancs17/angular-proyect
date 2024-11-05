@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
-import { AdminService } from '../../services/admin.service'; // Asegúrate de la ruta correcta
-import { CreateProduct } from '../../interdaces/interface'; // Asegúrate de la ruta correcta
+import { Router, RouterLink } from '@angular/router';
+import { AdminService } from '../../services/admin.service';
+import { CreateCategory } from '../../interdaces/interface';
 import { CookieService } from 'ngx-cookie-service';
 import { FormsModule } from '@angular/forms';
 
@@ -10,13 +10,17 @@ import { FormsModule } from '@angular/forms';
   standalone: true,
   imports: [RouterLink, FormsModule],
   templateUrl: './create-product.component.html',
-  styleUrl: './create-product.component.scss'
+  styleUrl: './create-product.component.scss',
 })
 export class CreateProductComponent {
   name: string = '';
   image: File | null = null;
 
-  constructor(private adminService: AdminService, private cookieService: CookieService) {}
+  constructor(
+    private adminS: AdminService,
+    private cookieService: CookieService,
+    private router: Router
+  ) {}
 
   onFileChange(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -26,19 +30,18 @@ export class CreateProductComponent {
   }
 
   onSubmit(event: Event): void {
-    event.preventDefault(); // Evita que se recargue la página
+    event.preventDefault();
 
     if (this.name && this.image) {
-      const token = this.cookieService.get('token'); // Asegúrate de que el token está guardado en las cookies
-      const product: CreateProduct = {
+      const token = this.cookieService.get('token');
+      const category: CreateCategory = {
         name: this.name,
-        image: this.image
+        image: this.image,
       };
 
-      this.adminService.createProduct(product, token).subscribe({
+      this.adminS.createCategory(category, token).subscribe({
         next: (response) => {
-          console.log('Producto creado:', response);
-          // Aquí puedes redirigir o mostrar un mensaje de éxito
+          this.router.navigate(['/admin/categorias/productos']);
         },
         error: (error) => {
           console.error('Error al crear el producto:', error);

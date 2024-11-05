@@ -1,64 +1,64 @@
-
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { GetCategory, CreateProduct } from '../interdaces/interface'; 
-// import { InterUser, InterUserEdit, InferUserCreate } from '../interdaces/interface';
-// import { InterUserDetail } from '../interdaces/interface';
-import { map } from 'rxjs/operators';
-
+import { GetCategory, CreateCategory } from '../interdaces/interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-  export class AdminService {
-    private miUrl = 'https://bolt-backend-chi.vercel.app'; 
-  
-    constructor(private http: HttpClient) {}
-  
-    getCategories(): Observable<{ resultado: GetCategory[] }> {
-      return this.http.get<{ resultado: GetCategory[] }>(
-        `${this.miUrl}/api/categories`
-      );
-    }
+export class AdminService {
+  private miUrl = 'https://bolt-backend-chi.vercel.app';
 
-    createProduct(product: CreateProduct, token: string): Observable<any> {
-      const formData = new FormData();
-      formData.append('name', product.name);
-      formData.append('image', product.image);
-      
-      const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-  
-      return this.http.post( `${this.miUrl}/api/categories`, formData, { headers });
-    }
-    
-  
-    // getUserById(id: string): Observable<InterUserDetail> {
-    //   return this.http.get<InterUserDetail>(
-    //     `${this.apiUrl}/get_user_by_id/${id}`
-    //   );
-    // }
-    // updateUser(user: InterUserEdit, id: number): Observable<any> {
-    //   return this.http.put(`${this.apiUrl}/update_user/${id}`, user);
-    // }
-  
-    // deleteUser(userId: number): Observable<any> {
-    //   return this.http.delete(`${this.apiUrl}/delete_user/${userId}`);
-    // }
-    // createUser(dataFrom: InferUserCreate): Observable<any> {
-    //   return this.http.get(`${this.miUrl}/api/auth/login`, dataFrom);
-    // }
+  private isOpenSubject = new BehaviorSubject<boolean>(false);
+  private categoryIdSubject = new BehaviorSubject<number | null>(null);
+  isOpen$ = this.isOpenSubject.asObservable();
+  categoryId$ = this.categoryIdSubject.asObservable();
 
+  constructor(private http: HttpClient) {}
 
-    private isOpen = new BehaviorSubject<boolean>(false);
-    isOpen$ = this.isOpen.asObservable();
-  
-    openModal() {
-      this.isOpen.next(true);
-    }
-  
-    closeModal() {
-      this.isOpen.next(false);
-    }
+  getCategories(): Observable<{ resultado: GetCategory[] }> {
+    return this.http.get<{ resultado: GetCategory[] }>(
+      `${this.miUrl}/api/categories`
+    );
   }
+
+  createCategory(product: CreateCategory, token: string): Observable<any> {
+    const formData = new FormData();
+    formData.append('name', product.name);
+    formData.append('image', product.image);
+
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+
+    return this.http.post(`${this.miUrl}/api/categories`, formData, {
+      headers,
+    });
+  }
+
+  updateCategory(cat: any, id: number, token: string): Observable<any> {
+    return this.http.put(`${this.miUrl}/api/categories/${id}`, cat, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
+  deleteCategory(categoryId: number, token: string): Observable<any> {
+    console.log('categoryId', categoryId);
+    return this.http.delete(`${this.miUrl}/api/categories/${categoryId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  }
+
+  openModal(categoryId: number) {
+    this.isOpenSubject.next(true);
+    this.categoryIdSubject.next(categoryId);
+  }
+
+  closeModal() {
+    this.isOpenSubject.next(false);
+    this.categoryIdSubject.next(null);
+  }
+}

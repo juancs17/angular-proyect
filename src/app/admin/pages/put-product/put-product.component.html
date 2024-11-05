@@ -1,7 +1,8 @@
-<div class="container mx-auto p-6 max-w-md bg-white rounded-lg shadow-md">
+<div class="min-h-[90vh] flex items-center justify-center">
+  <div class="container mx-auto p-6 max-w-md bg-[#f7f7f8] rounded-lg shadow-md">
     <h2 class="text-2xl font-semibold mb-4">Formulario</h2>
-    
-    <form>
+
+    <form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
       <!-- Campo para seleccionar una imagen -->
       <div class="mb-4">
         <label class="block text-gray-700 text-sm font-medium mb-2" for="image">
@@ -10,12 +11,12 @@
         <input
           type="file"
           id="image"
-          name="image"
+          formControlName="image"
           accept="image/*"
-          class="block w-full text-gray-700 bg-gray-100 border border-gray-300 rounded-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+          class="block w-full text-gray-700 bg-gray-100 border border-gray-300 rounded-lg cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#1a1a1c] focus:border-transparent"
         />
       </div>
-      
+
       <!-- Campo de texto para el nombre -->
       <div class="mb-4">
         <label class="block text-gray-700 text-sm font-medium mb-2" for="name">
@@ -24,27 +25,27 @@
         <input
           type="text"
           id="name"
-          name="name"
-          class="block w-full px-4 py-2 text-gray-700 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          placeholder="Escribe tu nombre"
+          formControlName="name"
+          class="block w-full px-4 py-2 text-gray-700 bg-gray-100 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1a1a1c] focus:border-transparent"
+          placeholder="Escribe el nombre de la categoría"
         />
       </div>
-      
+
       <!-- Botón de envío -->
-      <div class="flex justify-end">
+      <div class="flex justify-end gap-2">
         <button
-        routerLink="/admin/users/productos"
-          class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200"
+          routerLink="/admin/categorias/productos"
+          class="px-4 py-2 bg-[#1a1a1c] text-white rounded-lg hover:bg-[#434349] transition duration-200"
         >
           Atras
         </button>
         <button
           type="submit"
-          class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-200"
+          class="px-4 py-2 bg-[#1a1a1c] text-white rounded-lg hover:bg-[#434349] transition duration-200"
         >
           Enviar
         </button>
       </div>
     </form>
   </div>
-  
+</div>
